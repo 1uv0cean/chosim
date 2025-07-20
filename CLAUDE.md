@@ -111,6 +111,8 @@ When assisting with development, follow these rules:
 6. When defining new functionality, suggest both backend and frontend changes if applicable.
 7. TypeScript is required on both frontend and backend.
 8. If generating code, prefer clean, functional, composable style.
+9. **ALWAYS commit changes after completing each development milestone or feature implementation**.
+10. Use conventional commit messages following the pattern: `feat:`, `fix:`, `docs:`, `style:`, `refactor:`, `test:`, `chore:`.
 
 ---
 

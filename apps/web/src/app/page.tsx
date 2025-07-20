@@ -27,10 +27,18 @@ const ContentPaper = styled(Paper)(({ theme }) => ({
 }));
 
 const LanguageContainer = styled(Box)({
-  position: 'absolute',
+  position: 'fixed',
   top: 24,
   right: 24,
-  zIndex: 10,
+  zIndex: 1000,
+});
+
+const CenteredContent = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  minHeight: '100vh',
+  width: '100%',
 });
 
 const MainButton = styled(Button)(({ theme }) => ({
@@ -68,7 +76,7 @@ export default function Home() {
         <LanguageToggle />
       </LanguageContainer>
       
-      <Container maxWidth="md">
+      <CenteredContent>
         <ContentPaper elevation={0}>
           <Box sx={{ mb: 4 }}>
             <Typography 
@@ -115,7 +123,7 @@ export default function Home() {
             </SecondaryLink>
           </Box>
         </ContentPaper>
-      </Container>
+      </CenteredContent>
     </MainContainer>
   );
 }
