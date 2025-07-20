@@ -17,7 +17,7 @@ const MainContainer = styled(Box)(({ theme }) => ({
 }));
 
 const ContentPaper = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(4, 3),
+  padding: theme.spacing(3, 3),
   textAlign: 'center',
   background: 'rgba(17, 17, 17, 0.8)',
   backdropFilter: 'blur(10px)',
@@ -26,11 +26,11 @@ const ContentPaper = styled(Paper)(({ theme }) => ({
   width: '90%',
   margin: '0 auto',
   [theme.breakpoints.up('sm')]: {
-    padding: theme.spacing(5, 4),
+    padding: theme.spacing(3.5, 4),
     maxWidth: '520px',
   },
   [theme.breakpoints.up('md')]: {
-    padding: theme.spacing(6, 5),
+    padding: theme.spacing(4, 5),
     maxWidth: '600px',
   },
 }));
@@ -57,8 +57,8 @@ const CenteredContent = styled(Box)({
 const MainButton = styled(Button)(({ theme }) => ({
   fontSize: '1rem',
   padding: '12px 24px',
-  marginTop: theme.spacing(3),
-  marginBottom: theme.spacing(1.5),
+  marginTop: theme.spacing(2),
+  marginBottom: theme.spacing(1),
   minWidth: '200px',
   width: '100%',
   maxWidth: '280px',
@@ -69,20 +69,21 @@ const MainButton = styled(Button)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {
     fontSize: '1.1rem',
     padding: '14px 28px',
-    marginTop: theme.spacing(3.5),
-    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(2.5),
+    marginBottom: theme.spacing(1.5),
     minWidth: '240px',
     width: 'auto',
   },
   [theme.breakpoints.up('md')]: {
     padding: '16px 32px',
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(2),
     minWidth: '250px',
   },
 }));
 
 const SecondaryLink = styled(Typography)(({ theme }) => ({
-  marginTop: theme.spacing(2),
+  marginTop: theme.spacing(1.5),
   '& a': {
     color: theme.palette.text.secondary,
     textDecoration: 'none',
@@ -94,13 +95,13 @@ const SecondaryLink = styled(Typography)(({ theme }) => ({
     },
   },
   [theme.breakpoints.up('sm')]: {
-    marginTop: theme.spacing(2.5),
+    marginTop: theme.spacing(2),
     '& a': {
       fontSize: '0.95rem',
     },
   },
   [theme.breakpoints.up('md')]: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(2.5),
   },
 }));
 
@@ -115,16 +116,16 @@ export default function Home() {
       
       <CenteredContent>
         <ContentPaper elevation={0}>
-          <Box sx={{ mb: { xs: 3, sm: 3.5, md: 4 } }}>
+          <Box sx={{ mb: { xs: 2, sm: 2.5, md: 3 } }}>
             <Typography 
               variant="h1" 
               component="h1" 
               sx={{ 
                 fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem', lg: '3.5rem' },
-                mb: { xs: 1.5, sm: 2 },
+                mb: { xs: 1, sm: 1.5 },
                 fontWeight: 200,
                 letterSpacing: '0.1em',
-                lineHeight: 1.2
+                lineHeight: 1.1
               }}
             >
               {t(locale, 'common.title')}
@@ -136,7 +137,7 @@ export default function Home() {
                 color: 'text.secondary',
                 fontWeight: 300,
                 fontSize: { xs: '1rem', sm: '1.1rem', md: '1.2rem', lg: '1.3rem' },
-                lineHeight: 1.5,
+                lineHeight: 1.4,
                 px: { xs: 1, sm: 0 }
               }}
             >
