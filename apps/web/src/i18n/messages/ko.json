@@ -1,0 +1,53 @@
+{
+  "common": {
+    "title": "초심",
+    "subtitle": "본래 의도를 성찰하는 공간",
+    "loading": "불러오는 중...",
+    "error": "오류가 발생했습니다",
+    "returnHome": "홈으로 돌아가기"
+  },
+  "home": {
+    "beginReflection": "성찰 시작하기",
+    "viewPastReflections": "지난 성찰 보기"
+  },
+  "journal": {
+    "question": "당신의 본래 의도는 무엇이었나요?",
+    "titlePlaceholder": "성찰에 제목을 지어주세요 (선택사항)",
+    "contentPlaceholder": "시간을 갖고 천천히 써보세요. 이 여정을 시작했을 때의 진정한 마음을 떠올려보세요...",
+    "lockPeriodTitle": "언제 이 성찰을 다시 보시겠어요?",
+    "lockPeriodDescription": "선택한 기간이 지나야 글을 다시 볼 수 있어서, 진정한 재발견의 경험을 할 수 있습니다.",
+    "lockPeriodOptions": {
+      "30": {
+        "label": "30일",
+        "description": "한 달간의 성찰"
+      },
+      "100": {
+        "label": "100일",
+        "description": "계절 하나가 바뀌는 시간"
+      },
+      "365": {
+        "label": "365일",
+        "description": "완전한 일 년의 변화"
+      }
+    },
+    "submitButton": "나의 성찰 잠그기",
+    "submitting": "저장 중...",
+    "characterCount": "{current}/{max} 글자"
+  },
+  "entries": {
+    "title": "당신의 성찰들",
+    "noEntries": "아직 작성한 성찰이 없습니다.",
+    "entryCount": "{count}개의 성찰이 기록되었습니다",
+    "firstReflection": "첫 번째 성찰 작성하기",
+    "startJourney": "자기 성찰의 여정을 시작해보세요.",
+    "availableReflections": "볼 수 있는 성찰",
+    "lockedReflections": "잠긴 성찰",
+    "reflectionLocked": "성찰이 잠겨있습니다",
+    "lockedDescription": "이 성찰은 현재 잠겨있습니다.",
+    "unlocksIn": "{days}일 후에 잠금이 해제됩니다",
+    "unlocksOn": "{date}에 잠금 해제",
+    "writtenOn": "{date}에 작성됨",
+    "unlockedAfter": "{days}일 후 잠금 해제됨",
+    "failedToLoad": "성찰을 불러올 수 없습니다"
+  }
+}

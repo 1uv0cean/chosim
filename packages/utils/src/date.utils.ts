@@ -1,10 +1,10 @@
-export function formatDate(date: Date, format: 'short' | 'long' = 'short'): string {
+export function formatDate(date: Date, format: 'short' | 'long' = 'short', locale: string = 'en-US'): string {
   const options: Intl.DateTimeFormatOptions = 
     format === 'long' 
       ? { year: 'numeric', month: 'long', day: 'numeric' }
       : { year: 'numeric', month: '2-digit', day: '2-digit' };
   
-  return date.toLocaleDateString('en-US', options);
+  return date.toLocaleDateString(locale, options);
 }
 
 export function isToday(date: Date): boolean {

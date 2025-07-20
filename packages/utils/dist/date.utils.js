@@ -1,8 +1,8 @@
-export function formatDate(date, format = 'short') {
+export function formatDate(date, format = 'short', locale = 'en-US') {
     const options = format === 'long'
         ? { year: 'numeric', month: 'long', day: 'numeric' }
         : { year: 'numeric', month: '2-digit', day: '2-digit' };
-    return date.toLocaleDateString('en-US', options);
+    return date.toLocaleDateString(locale, options);
 }
 export function isToday(date) {
     const today = new Date();

@@ -2,12 +2,14 @@
 
 import { useState } from 'react';
 import { LockPeriod } from '@chosim/types';
+import { t, Locale } from '@/lib/translations';
 
 interface JournalFormProps {
   onSubmit: (content: string, lockPeriod: LockPeriod, title?: string) => Promise<void>;
+  locale: Locale;
 }
 
-export function JournalForm({ onSubmit }: JournalFormProps) {
+export function JournalForm({ onSubmit, locale }: JournalFormProps) {
   const [content, setContent] = useState('');
   const [title, setTitle] = useState('');
   const [lockPeriod, setLockPeriod] = useState<LockPeriod>(LockPeriod.THIRTY_DAYS);
@@ -33,9 +35,21 @@ export function JournalForm({ onSubmit }: JournalFormProps) {
   };
 
   const lockPeriodOptions = [
-    { value: LockPeriod.THIRTY_DAYS, label: '30 days', description: 'One month of reflection' },
-    { value: LockPeriod.ONE_HUNDRED_DAYS, label: '100 days', description: 'A season of growth' },
-    { value: LockPeriod.ONE_YEAR, label: '365 days', description: 'A full year of change' },
+    { 
+      value: LockPeriod.THIRTY_DAYS, 
+      label: t(locale, 'journal.lockPeriodOptions.30.label'), 
+      description: t(locale, 'journal.lockPeriodOptions.30.description') 
+    },
+    { 
+      value: LockPeriod.ONE_HUNDRED_DAYS, 
+      label: t(locale, 'journal.lockPeriodOptions.100.label'), 
+      description: t(locale, 'journal.lockPeriodOptions.100.description') 
+    },
+    { 
+      value: LockPeriod.ONE_YEAR, 
+      label: t(locale, 'journal.lockPeriodOptions.365.label'), 
+      description: t(locale, 'journal.lockPeriodOptions.365.description') 
+    },
   ];
 
   return (
@@ -46,7 +60,7 @@ export function JournalForm({ onSubmit }: JournalFormProps) {
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            placeholder="Give your reflection a title (optional)"
+            placeholder={t(locale, 'journal.titlePlaceholder')}
             className="w-full bg-transparent border-b border-slate-700 focus:border-slate-500 outline-none py-3 text-lg placeholder-slate-500 transition-colors"
             maxLength={100}
           />
@@ -54,22 +68,22 @@ export function JournalForm({ onSubmit }: JournalFormProps) {
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            placeholder="Take your time. Write from your heart about what you originally intended when you began this journey..."
+            placeholder={t(locale, 'journal.contentPlaceholder')}
             className="w-full bg-transparent border border-slate-700 focus:border-slate-500 outline-none p-6 rounded-lg text-base placeholder-slate-500 transition-colors min-h-[300px] resize-y"
             maxLength={5000}
           />
           
           <div className="text-right text-sm text-slate-500">
-            {content.length}/5000 characters
+            {t(locale, 'journal.characterCount', { current: content.length.toString(), max: '5000' })}
           </div>
         </div>
 
         <div className="space-y-4">
           <h3 className="text-lg font-medium text-slate-300">
-            When should this reflection unlock?
+            {t(locale, 'journal.lockPeriodTitle')}
           </h3>
           <p className="text-sm text-slate-500">
-            Your entry will remain hidden until the selected time passes, allowing for genuine rediscovery.
+            {t(locale, 'journal.lockPeriodDescription')}
           </p>
           
           <div className="grid gap-3">
@@ -105,7 +119,7 @@ export function JournalForm({ onSubmit }: JournalFormProps) {
             disabled={isSubmitting || content.trim().length < 10}
             className="px-8 py-3 bg-slate-800 hover:bg-slate-700 disabled:bg-slate-900 disabled:text-slate-600 transition-colors rounded-lg font-medium"
           >
-            {isSubmitting ? 'Saving...' : 'Lock Away My Reflection'}
+            {isSubmitting ? t(locale, 'journal.submitting') : t(locale, 'journal.submitButton')}
           </button>
         </div>
       </form>

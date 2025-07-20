@@ -6,12 +6,13 @@ import { LockPeriod } from '@chosim/types';
 import { TypingAnimation } from '@/components/TypingAnimation';
 import { JournalForm } from '@/features/journal/JournalForm';
 import { apiClient } from '@/lib/api';
-
-const QUESTION = "What was your original intention?";
+import { t } from '@/lib/translations';
+import { useLanguage } from '@/hooks/useLanguage';
 
 export default function JournalPage() {
   const [showForm, setShowForm] = useState(false);
   const router = useRouter();
+  const { locale } = useLanguage();
 
   const handleAnimationComplete = () => {
     setShowForm(true);
@@ -37,14 +38,14 @@ export default function JournalPage() {
         <div className="space-y-12">
           <div className="text-center">
             <TypingAnimation 
-              text={QUESTION}
+              text={t(locale, 'journal.question')}
               className="text-2xl md:text-3xl font-light tracking-wide"
               onComplete={handleAnimationComplete}
             />
           </div>
 
           {showForm && (
-            <JournalForm onSubmit={handleFormSubmit} />
+            <JournalForm onSubmit={handleFormSubmit} locale={locale} />
           )}
         </div>
       </div>
