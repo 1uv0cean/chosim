@@ -33,10 +33,17 @@ export function LanguageToggle({ className = '' }: LanguageToggleProps) {
         value={currentLang}
         onChange={handleLanguageChange}
         sx={{
-          minWidth: 100,
+          minWidth: { xs: 80, sm: 100 },
           '& .MuiSelect-select': {
-            fontSize: '0.875rem',
+            fontSize: { xs: '0.75rem', sm: '0.875rem' },
             fontWeight: 300,
+            padding: { xs: '6px 8px', sm: '8px 12px' },
+          },
+          '& .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'rgba(255, 255, 255, 0.2)',
+          },
+          '&:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'rgba(255, 255, 255, 0.4)',
           },
         }}
       >
