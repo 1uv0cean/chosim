@@ -1,0 +1,24 @@
+{
+  "name": "chosim-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "npm@10.0.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "start": "turbo run start",
+    "typecheck": "turbo run typecheck",
+    "clean": "rm -rf node_modules && rm -rf apps/*/node_modules && rm -rf packages/*/node_modules && rm -rf apps/*/.next && rm -rf apps/*/dist && rm -rf packages/*/dist"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "turbo": "^2.5.5",
+    "typescript": "^5.3.3"
+  }
+}
