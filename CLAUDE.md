@@ -28,21 +28,26 @@ We use a **Turborepo-based monorepo** layout:
 This project follows the **SOLID** principles to ensure high cohesion, loose coupling, and scalable design.
 
 ### ✅ S - Single Responsibility Principle
+
 - Each module, class, and function must have only one reason to change.
 - Controllers only receive HTTP requests and delegate logic to services or use-cases.
 
 ### ✅ O - Open/Closed Principle
+
 - New features should be added via extension (new files/classes) rather than modifying core logic.
 - Abstract interfaces and plugin-style service layers are encouraged.
 
 ### ✅ L - Liskov Substitution Principle
+
 - Services should rely on abstractions (e.g., interfaces), so alternate implementations (e.g., mock, production) are interchangeable.
 
 ### ✅ I - Interface Segregation Principle
+
 - Small, task-specific interfaces are preferred over large, generic ones.
 - One use-case = one interface contract.
 
 ### ✅ D - Dependency Inversion Principle
+
 - High-level modules should not depend on low-level modules.
 - We use NestJS dependency injection to bind interfaces to implementations.
 
@@ -57,7 +62,7 @@ This project follows the **SOLID** principles to ensure high cohesion, loose cou
 - All public API routes are documented via Swagger decorators.
 
 ```ts
-@Controller('users')
+@Controller("users")
 export class UsersController {
   constructor(private readonly userService: UserService) {}
 
@@ -119,15 +124,15 @@ When assisting with development, follow these rules:
 
 ## 🔗 Tools & Libraries
 
-| Tool | Purpose |
-|------|---------|
-| Turborepo | Monorepo management |
-| Swagger (NestJS) | API documentation and contract |
-| openapi-typescript | Type generation from OpenAPI |
-| orval | Type + API client generator |
-| class-validator | DTO validation on server |
-| react-hook-form | Form handling on frontend |
-| zod (optional) | Schema validation on frontend |
+| Tool               | Purpose                        |
+| ------------------ | ------------------------------ |
+| Turborepo          | Monorepo management            |
+| Swagger (NestJS)   | API documentation and contract |
+| openapi-typescript | Type generation from OpenAPI   |
+| orval              | Type + API client generator    |
+| class-validator    | DTO validation on server       |
+| react-hook-form    | Form handling on frontend      |
+| zod (optional)     | Schema validation on frontend  |
 
 ---
 
@@ -142,6 +147,63 @@ When assisting with development, follow these rules:
 ## 📌 Final Note to Claude
 
 If asked to generate or explain code, please assume:
+
 - **Modular, scalable, maintainable** architecture is expected
 - Always **justify design decisions**
 - You are contributing as a **senior developer in a scalable system**
+
+---
+
+# Project Overview
+
+You are contributing to a web-based journaling platform called “Chosim (초심)”.
+
+## Purpose
+
+The goal of Chosim is to help users reflect on their original intentions — the mindset or motivation they had when starting something meaningful (e.g., job, goal, personal journey). It provides a calm and minimal space for emotional introspection.
+
+## Core Features (MVP)
+
+1. Prompt the user with the question:  
+   → “What was your original intention?”
+
+2. Let the user write their personal response in a minimal text area.
+
+3. After submission, the entry is saved and locked (hidden) for a selected period (e.g., 30, 100, 365 days).
+
+4. After the unlock date passes, the entry becomes visible to the user again.
+
+5. Future features may include: timeline of past entries, weekly reminder notifications, and reflection history.
+
+## Emotional Design Characteristics
+
+- Calm, non-judgmental tone.
+- Question appears one character at a time (typing animation).
+- Dark mode preferred for immersive writing.
+- No social features or productivity gamification.
+
+## Target Users
+
+- Users experiencing burnout, loss of direction, or emotional fatigue.
+- People seeking self-connection or personal alignment.
+
+## Monetization Strategy
+
+- Freemium model (limited vs. unlimited entries).
+- Optional upgrade to view history, receive weekly reminders, and export entries.
+- Digital keepsakes: export entry as poster, PDF, or lockscreen.
+
+## Tech Stack
+
+- Frontend: Next.js with Tailwind CSS
+- Backend: NestJS
+- State Management: React state or Zustand
+- Hosting: Vercel
+- Shared types and constants may be extracted into a shared package for future monorepo setup.
+
+## Additional Notes for You (the LLM)
+
+- Use calm and empathetic tone in user-facing copy.
+- Maintain clear separation of concerns: UI logic, state logic, and persistence logic.
+- When generating code or design ideas, follow SOLID principles.
+- Do not suggest AI feedback or content generation — the user writes from their own heart.
