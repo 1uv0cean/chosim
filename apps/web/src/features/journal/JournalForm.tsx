@@ -1,9 +1,67 @@
 'use client';
 
 import { useState } from 'react';
+import { 
+  Box, 
+  TextField, 
+  Typography, 
+  Button, 
+  Paper, 
+  FormControl, 
+  FormControlLabel, 
+  RadioGroup, 
+  Radio,
+  Fade,
+  LinearProgress
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { LockPeriod } from '@chosim/types';
 import { t } from '@/lib/translations';
 import { useLanguage } from '@/hooks/useLanguage';
+
+const FormContainer = styled(Paper)(({ theme }) => ({
+  padding: theme.spacing(6),
+  background: 'rgba(17, 17, 17, 0.9)',
+  backdropFilter: 'blur(10px)',
+  border: '1px solid rgba(255, 255, 255, 0.1)',
+  borderRadius: 16,
+  maxWidth: '800px',
+  margin: '0 auto',
+}));
+
+const ContentTextField = styled(TextField)(({ theme }) => ({
+  '& .MuiOutlinedInput-root': {
+    minHeight: '300px',
+    alignItems: 'flex-start',
+    '& textarea': {
+      resize: 'vertical',
+    },
+  },
+}));
+
+const LockPeriodOption = styled(Paper)(({ theme }) => ({
+  padding: theme.spacing(3),
+  marginBottom: theme.spacing(2),
+  background: 'rgba(0, 0, 0, 0.3)',
+  border: '1px solid rgba(255, 255, 255, 0.1)',
+  transition: 'all 0.2s ease',
+  cursor: 'pointer',
+  '&:hover': {
+    borderColor: 'rgba(255, 255, 255, 0.3)',
+    background: 'rgba(255, 255, 255, 0.05)',
+  },
+  '&.selected': {
+    borderColor: '#ffffff',
+    background: 'rgba(255, 255, 255, 0.1)',
+  },
+}));
+
+const SubmitButton = styled(Button)(({ theme }) => ({
+  fontSize: '1.1rem',
+  padding: '16px 48px',
+  marginTop: theme.spacing(4),
+  minWidth: '200px',
+}));
 
 interface JournalFormProps {
   onSubmit: (content: string, lockPeriod: LockPeriod, title?: string) => Promise<void>;
@@ -20,7 +78,7 @@ export function JournalForm({ onSubmit }: JournalFormProps) {
     e.preventDefault();
     
     if (content.trim().length < 10) {
-      alert('Please write at least 10 characters to capture your reflection.');
+      alert(t(locale, 'journal.minimumCharacters'));
       return;
     }
 
@@ -29,7 +87,7 @@ export function JournalForm({ onSubmit }: JournalFormProps) {
       await onSubmit(content.trim(), lockPeriod, title.trim() || undefined);
     } catch (error) {
       console.error('Error submitting entry:', error);
-      alert('Failed to save your reflection. Please try again.');
+      alert(t(locale, 'journal.submitError'));
     } finally {
       setIsSubmitting(false);
     }
@@ -54,76 +112,90 @@ export function JournalForm({ onSubmit }: JournalFormProps) {
   ];
 
   return (
-    <div className="animate-fade-in">
-      <form onSubmit={handleSubmit} className="space-y-8">
-        <div className="space-y-4">
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder={t(locale, 'journal.titlePlaceholder')}
-            className="w-full bg-transparent border-b border-slate-700 focus:border-slate-500 outline-none py-3 text-lg placeholder-slate-500 transition-colors"
-            maxLength={100}
-          />
-          
-          <textarea
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            placeholder={t(locale, 'journal.contentPlaceholder')}
-            className="w-full bg-transparent border border-slate-700 focus:border-slate-500 outline-none p-6 rounded-lg text-base placeholder-slate-500 transition-colors min-h-[300px] resize-y"
-            maxLength={5000}
-          />
-          
-          <div className="text-right text-sm text-slate-500">
-            {t(locale, 'journal.characterCount', { current: content.length.toString(), max: '5000' })}
-          </div>
-        </div>
+    <Fade in timeout={600}>
+      <FormContainer elevation={0}>
+        <Box component="form" onSubmit={handleSubmit}>
+          <Box sx={{ mb: 4 }}>
+            <TextField
+              fullWidth
+              variant="outlined"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder={t(locale, 'journal.titlePlaceholder')}
+              inputProps={{ maxLength: 100 }}
+              sx={{ mb: 3 }}
+            />
+            
+            <ContentTextField
+              fullWidth
+              multiline
+              variant="outlined"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              placeholder={t(locale, 'journal.contentPlaceholder')}
+              inputProps={{ maxLength: 5000 }}
+            />
+            
+            <Box sx={{ textAlign: 'right', mt: 1 }}>
+              <Typography variant="body2" color="text.secondary">
+                {t(locale, 'journal.characterCount', { current: content.length.toString(), max: '5000' })}
+              </Typography>
+            </Box>
+          </Box>
 
-        <div className="space-y-4">
-          <h3 className="text-lg font-medium text-slate-300">
-            {t(locale, 'journal.lockPeriodTitle')}
-          </h3>
-          <p className="text-sm text-slate-500">
-            {t(locale, 'journal.lockPeriodDescription')}
-          </p>
-          
-          <div className="grid gap-3">
-            {lockPeriodOptions.map((option) => (
-              <label
-                key={option.value}
-                className={`flex items-center space-x-3 p-4 rounded-lg border cursor-pointer transition-colors ${
-                  lockPeriod === option.value
-                    ? 'border-slate-500 bg-slate-800/50'
-                    : 'border-slate-700 hover:border-slate-600'
-                }`}
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h4" component="h3" sx={{ mb: 2, fontWeight: 400 }}>
+              {t(locale, 'journal.lockPeriodTitle')}
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+              {t(locale, 'journal.lockPeriodDescription')}
+            </Typography>
+            
+            <FormControl component="fieldset">
+              <RadioGroup
+                value={lockPeriod}
+                onChange={(e) => setLockPeriod(Number(e.target.value) as LockPeriod)}
               >
-                <input
-                  type="radio"
-                  name="lockPeriod"
-                  value={option.value}
-                  checked={lockPeriod === option.value}
-                  onChange={(e) => setLockPeriod(Number(e.target.value) as LockPeriod)}
-                  className="text-slate-400"
-                />
-                <div>
-                  <div className="font-medium">{option.label}</div>
-                  <div className="text-sm text-slate-500">{option.description}</div>
-                </div>
-              </label>
-            ))}
-          </div>
-        </div>
+                {lockPeriodOptions.map((option) => (
+                  <LockPeriodOption
+                    key={option.value}
+                    className={lockPeriod === option.value ? 'selected' : ''}
+                    onClick={() => setLockPeriod(option.value)}
+                  >
+                    <FormControlLabel
+                      value={option.value}
+                      control={<Radio sx={{ color: 'grey.600' }} />}
+                      label={
+                        <Box>
+                          <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                            {option.label}
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            {option.description}
+                          </Typography>
+                        </Box>
+                      }
+                      sx={{ margin: 0, width: '100%' }}
+                    />
+                  </LockPeriodOption>
+                ))}
+              </RadioGroup>
+            </FormControl>
+          </Box>
 
-        <div className="flex justify-center pt-6">
-          <button
-            type="submit"
-            disabled={isSubmitting || content.trim().length < 10}
-            className="px-8 py-3 bg-slate-800 hover:bg-slate-700 disabled:bg-slate-900 disabled:text-slate-600 transition-colors rounded-lg font-medium"
-          >
-            {isSubmitting ? t(locale, 'journal.submitting') : t(locale, 'journal.submitButton')}
-          </button>
-        </div>
-      </form>
-    </div>
+          <Box sx={{ textAlign: 'center' }}>
+            {isSubmitting && <LinearProgress sx={{ mb: 2 }} />}
+            <SubmitButton
+              type="submit"
+              variant="contained"
+              disabled={isSubmitting || content.trim().length < 10}
+              size="large"
+            >
+              {isSubmitting ? t(locale, 'journal.submitting') : t(locale, 'journal.submitButton')}
+            </SubmitButton>
+          </Box>
+        </Box>
+      </FormContainer>
+    </Fade>
   );
 }

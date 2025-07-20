@@ -2,12 +2,29 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { Box, Container, Typography, Fade } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { LockPeriod } from '@chosim/types';
 import { TypingAnimation } from '@/components/TypingAnimation';
 import { JournalForm } from '@/features/journal/JournalForm';
 import { apiClient } from '@/lib/api';
 import { t } from '@/lib/translations';
 import { useLanguage } from '@/hooks/useLanguage';
+
+const JournalContainer = styled(Box)(({ theme }) => ({
+  minHeight: '100vh',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  background: 'linear-gradient(180deg, #000000 0%, #111111 100%)',
+  padding: theme.spacing(4),
+}));
+
+const QuestionContainer = styled(Box)(({ theme }) => ({
+  textAlign: 'center',
+  marginBottom: theme.spacing(8),
+  padding: theme.spacing(4),
+}));
 
 export default function JournalPage() {
   const [showForm, setShowForm] = useState(false);
@@ -33,22 +50,36 @@ export default function JournalPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-center p-8">
-      <div className="max-w-4xl mx-auto w-full">
-        <div className="space-y-12">
-          <div className="text-center">
+    <JournalContainer>
+      <Container maxWidth="lg">
+        <QuestionContainer>
+          <Typography
+            variant="h2"
+            component="h1"
+            sx={{
+              fontSize: { xs: '1.8rem', md: '2.5rem' },
+              fontWeight: 300,
+              letterSpacing: '0.05em',
+              lineHeight: 1.4,
+              minHeight: '80px',
+            }}
+          >
             <TypingAnimation 
               text={t(locale, 'journal.question')}
-              className="text-2xl md:text-3xl font-light tracking-wide"
+              className=""
               onComplete={handleAnimationComplete}
             />
-          </div>
+          </Typography>
+        </QuestionContainer>
 
-          {showForm && (
-            <JournalForm onSubmit={handleFormSubmit} />
-          )}
-        </div>
-      </div>
-    </div>
+        <Fade in={showForm} timeout={800}>
+          <Box>
+            {showForm && (
+              <JournalForm onSubmit={handleFormSubmit} />
+            )}
+          </Box>
+        </Fade>
+      </Container>
+    </JournalContainer>
   );
 }
