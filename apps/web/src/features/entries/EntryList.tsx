@@ -2,14 +2,15 @@
 
 import { JournalEntry, JournalEntryStatus } from '@chosim/types';
 import { formatDate } from '@chosim/utils';
-import { t, Locale } from '@/lib/translations';
+import { t } from '@/lib/translations';
+import { useLanguage } from '@/hooks/useLanguage';
 
 interface EntryListProps {
   entries: JournalEntry[];
-  locale: Locale;
 }
 
-export function EntryList({ entries, locale }: EntryListProps) {
+export function EntryList({ entries }: EntryListProps) {
+  const { locale } = useLanguage();
   const unlockedEntries = entries.filter(entry => entry.status === JournalEntryStatus.UNLOCKED);
   const lockedEntries = entries.filter(entry => entry.status === JournalEntryStatus.LOCKED);
 
@@ -22,7 +23,7 @@ export function EntryList({ entries, locale }: EntryListProps) {
           </h2>
           <div className="space-y-4">
             {unlockedEntries.map((entry) => (
-              <EntryCard key={entry.id} entry={entry} locale={locale} />
+              <EntryCard key={entry.id} entry={entry} />
             ))}
           </div>
         </section>
@@ -35,7 +36,7 @@ export function EntryList({ entries, locale }: EntryListProps) {
           </h2>
           <div className="space-y-4">
             {lockedEntries.map((entry) => (
-              <LockedEntryCard key={entry.id} entry={entry} locale={locale} />
+              <LockedEntryCard key={entry.id} entry={entry} />
             ))}
           </div>
         </section>
@@ -44,7 +45,8 @@ export function EntryList({ entries, locale }: EntryListProps) {
   );
 }
 
-function EntryCard({ entry, locale }: { entry: JournalEntry; locale: Locale }) {
+function EntryCard({ entry }: { entry: JournalEntry }) {
+  const { locale } = useLanguage();
   
   return (
     <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 space-y-4">
@@ -64,7 +66,8 @@ function EntryCard({ entry, locale }: { entry: JournalEntry; locale: Locale }) {
   );
 }
 
-function LockedEntryCard({ entry, locale }: { entry: JournalEntry; locale: Locale }) {
+function LockedEntryCard({ entry }: { entry: JournalEntry }) {
+  const { locale } = useLanguage();
   const daysUntilUnlock = Math.ceil(
     (new Date(entry.unlocksAt).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)
   );

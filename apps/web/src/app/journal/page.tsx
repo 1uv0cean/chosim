@@ -45,7 +45,7 @@ export default function JournalPage() {
           </div>
 
           {showForm && (
-            <JournalForm onSubmit={handleFormSubmit} locale={locale} />
+            <JournalForm onSubmit={handleFormSubmit} />
           )}
         </div>
       </div>

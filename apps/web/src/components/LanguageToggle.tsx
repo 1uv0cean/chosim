@@ -11,31 +11,34 @@ export function LanguageToggle({ className = '' }: LanguageToggleProps) {
   const { locale: currentLang, changeLanguage } = useLanguage();
 
   const languages = [
-    { code: 'ko' as Locale, label: '한', title: '한국어' },
-    { code: 'en' as Locale, label: 'En', title: 'English' },
-    { code: 'ja' as Locale, label: '日', title: '日本語' }
+    { code: 'ko' as Locale, label: '한국어 (Korean)' },
+    { code: 'en' as Locale, label: 'English' },
+    { code: 'ja' as Locale, label: '日本語 (Japanese)' },
+    { code: 'zh' as Locale, label: '中文 (Chinese)' },
+    { code: 'es' as Locale, label: 'Español (Spanish)' },
+    { code: 'fr' as Locale, label: 'Français (French)' },
+    { code: 'de' as Locale, label: 'Deutsch (German)' }
   ];
 
-  const handleLanguageChange = (langCode: Locale) => {
+  const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const langCode = event.target.value as Locale;
     changeLanguage(langCode);
+    window.location.reload();
   };
 
   return (
-    <div className={`flex space-x-2 ${className}`}>
-      {languages.map((lang) => (
-        <button
-          key={lang.code}
-          onClick={() => handleLanguageChange(lang.code)}
-          title={lang.title}
-          className={`px-3 py-1 rounded text-sm transition-colors ${
-            currentLang === lang.code
-              ? 'bg-slate-700 text-slate-100'
-              : 'text-slate-500 hover:text-slate-300 hover:bg-slate-800'
-          }`}
-        >
-          {lang.label}
-        </button>
-      ))}
+    <div className={className}>
+      <select
+        value={currentLang}
+        onChange={handleLanguageChange}
+        className="bg-slate-800 border border-slate-600 text-slate-100 px-3 py-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all duration-200 hover:bg-slate-700"
+      >
+        {languages.map((lang) => (
+          <option key={lang.code} value={lang.code} className="bg-slate-800 text-slate-100">
+            {lang.label}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }

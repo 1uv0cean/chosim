@@ -2,14 +2,15 @@
 
 import { useState } from 'react';
 import { LockPeriod } from '@chosim/types';
-import { t, Locale } from '@/lib/translations';
+import { t } from '@/lib/translations';
+import { useLanguage } from '@/hooks/useLanguage';
 
 interface JournalFormProps {
   onSubmit: (content: string, lockPeriod: LockPeriod, title?: string) => Promise<void>;
-  locale: Locale;
 }
 
-export function JournalForm({ onSubmit, locale }: JournalFormProps) {
+export function JournalForm({ onSubmit }: JournalFormProps) {
+  const { locale } = useLanguage();
   const [content, setContent] = useState('');
   const [title, setTitle] = useState('');
   const [lockPeriod, setLockPeriod] = useState<LockPeriod>(LockPeriod.THIRTY_DAYS);

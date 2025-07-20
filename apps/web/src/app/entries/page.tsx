@@ -79,7 +79,7 @@ export default function EntriesPage() {
               </Link>
             </div>
           ) : (
-            <EntryList entries={entries} locale={locale} />
+            <EntryList entries={entries} />
           )}
 
           <div className="text-center">
