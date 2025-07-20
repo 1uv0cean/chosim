@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { JournalEntry, JournalEntryStatus } from '@chosim/types';
-import { CreateJournalEntryDto, UpdateJournalEntryDto } from '@chosim/types';
+import { JournalEntry, JournalEntryStatus, CreateJournalEntryDto, UpdateJournalEntryDto } from '@chosim/types';
 import { IJournalEntryRepository } from '../interfaces/journal-entry-repository.interface';
 
 @Injectable()

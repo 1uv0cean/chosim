@@ -1,5 +1,4 @@
-import { JournalEntry, JournalEntryStatus } from '@chosim/types';
-import { CreateJournalEntryDto, UpdateJournalEntryDto } from '@chosim/types';
+import { JournalEntry, JournalEntryStatus, CreateJournalEntryDto, UpdateJournalEntryDto } from '@chosim/types';
 
 export interface IJournalEntryRepository {
   create(dto: CreateJournalEntryDto): Promise<JournalEntry>;

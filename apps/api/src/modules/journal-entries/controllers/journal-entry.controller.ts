@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Put, Delete, Body, Param, Query, HttpStatus, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, Query, HttpStatus, NotFoundException, Inject } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { JournalEntry, JournalEntryStatus } from '@chosim/types';
-import { CreateJournalEntryDto, UpdateJournalEntryDto } from '@chosim/types';
+import { CreateJournalEntryDto, UpdateJournalEntryDto } from '../dto/journal-entry.dto';
 import { ICreateJournalEntryUseCase } from '../interfaces/create-journal-entry-use-case.interface';
 import { IGetJournalEntriesUseCase, IGetJournalEntryByIdUseCase } from '../interfaces/get-journal-entries-use-case.interface';
 
@@ -9,8 +9,11 @@ import { IGetJournalEntriesUseCase, IGetJournalEntryByIdUseCase } from '../inter
 @Controller('journal-entries')
 export class JournalEntryController {
   constructor(
+    @Inject('ICreateJournalEntryUseCase')
     private readonly createJournalEntryUseCase: ICreateJournalEntryUseCase,
+    @Inject('IGetJournalEntriesUseCase')
     private readonly getJournalEntriesUseCase: IGetJournalEntriesUseCase,
+    @Inject('IGetJournalEntryByIdUseCase')
     private readonly getJournalEntryByIdUseCase: IGetJournalEntryByIdUseCase,
   ) {}
 
