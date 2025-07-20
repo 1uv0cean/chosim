@@ -20,13 +20,21 @@ import { t } from '@/lib/translations';
 import { useLanguage } from '@/hooks/useLanguage';
 
 const FormContainer = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(6),
+  padding: theme.spacing(3),
   background: 'rgba(17, 17, 17, 0.9)',
   backdropFilter: 'blur(10px)',
   border: '1px solid rgba(255, 255, 255, 0.1)',
-  borderRadius: 16,
-  maxWidth: '800px',
+  borderRadius: 12,
+  maxWidth: '700px',
   margin: '0 auto',
+  [theme.breakpoints.up('sm')]: {
+    padding: theme.spacing(4),
+    maxWidth: '750px',
+  },
+  [theme.breakpoints.up('md')]: {
+    padding: theme.spacing(5),
+    maxWidth: '800px',
+  },
 }));
 
 const ContentTextField = styled(TextField)(({ theme }) => ({
